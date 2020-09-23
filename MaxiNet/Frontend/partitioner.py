@@ -252,7 +252,7 @@ class Partitioner(object):
             del dr["node2"]
         return dr
 
-    def _add_links(self, switch_to_part):
+    def _add_links(self, mapping):
         for node in self.topo.nodes():
             if not self.topo.isSwitch(node):
                 self.partitions[mapping[node]].addNode(node, **self.topo.nodeInfo(node))
