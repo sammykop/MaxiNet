@@ -207,7 +207,7 @@ class Partitioner(object):
         self.partitions = []
         for i in range(0, max(mapping.values()) + 1):
             self.partitions.append(Topo())
-        print mapping
+
         switch_to_part = {}
         for switch in self.switches:
             if(not switch in mapping):
@@ -215,7 +215,7 @@ class Partitioner(object):
             switch_to_part[switch] = mapping[switch]
             self.partitions[mapping[switch]].addNode(switch,
                     **self.topo.nodeInfo(switch))
-        self._add_links(switch_to_part)
+        self._add_links(mapping)
         return Clustering(self.partitions, self.tunnels)
 
     def _write_to_file(self, pstr):
@@ -253,6 +253,7 @@ class Partitioner(object):
         return dr
 
     def _add_links(self, mapping):
+        print mapping
         for node in self.topo.nodes():
             if not self.topo.isSwitch(node):
                 self.partitions[mapping[node]].addNode(node, **self.topo.nodeInfo(node))
