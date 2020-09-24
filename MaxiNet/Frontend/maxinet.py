@@ -132,8 +132,8 @@ class Worker(object):
         self.ssh._pyroHmacKey=pyropw
         self.config = Pyro4.Proxy(nameserver.lookup("config"))
         self.config._pyroHmacKey=pyropw
-        if(not self.config.run_with_1500_mtu()):
-            self._fix_mtus()
+        #if(not self.config.run_with_1500_mtu()):
+            #self._fix_mtus()
         self.switch = switch
         self.sshtool = sshtool
         self.sshtool.add_known_host(self.ip())
