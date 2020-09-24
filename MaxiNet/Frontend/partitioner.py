@@ -258,13 +258,7 @@ class Partitioner(object):
             if not self.topo.isSwitch(node):
                 self.partitions[mapping[node]].addNode(node, **self.topo.nodeInfo(node))
                 for edge in self.topo.links():
-                    if (edge[0] == node and not self.topo.isSwitch(edge[1])):
-                        print("debug1")
-                        info = self._remove_nodeinfo(self.topo.linkInfo(node, edge[1]))
-                        self.partitions[mapping[node]].addLink(node, edge[1], **info)
-                        if (mapping[edge[0]] != mapping[edge[1]]):
-                            self.tunnels.append([edge[0], edge[1], self.topo.linkInfo(edge[0], edge[1])])
-                    elif(edge[0] == node and self.topo.isSwitch(edge[1])):
+                    if(edge[0] == node and self.topo.isSwitch(edge[1])):
                         print("debug2")
                         info = self._remove_nodeinfo(self.topo.linkInfo(node, edge[1]))
                         self.partitions[mapping[edge[1]]].addNode(node, **self.topo.nodeInfo(node))
@@ -275,12 +269,12 @@ class Partitioner(object):
                         self.partitions[mapping[edge[0]]].addNode(node, **self.topo.nodeInfo(node))
                         self.partitions[mapping[edge[0]]].addLink(edge[0], node, **info)
         for edge in self.topo.links():
-            if (self.topo.isSwitch(edge[0]) and self.topo.isSwitch(edge[1])):
-                info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
-                if(mapping[edge[0]] == mapping[edge[1]]):
-                    self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
-                else:
-                    self.tunnels.append([edge[0], edge[1], self.topo.linkInfo(edge[0], edge[1])])
+            info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
+            if(mapping[edge[0]] == mapping[edge[1]]):
+                self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
+            else:
+                self.tunnels.append([edge[0], edge[1], self.topo.linkInfo(edge[0], edge[1])])
+
         self.logger.debug("Topologies:")
         for t in self.partitions:
             self.logger.debug("Partition " + str(self.partitions.index(t)))
