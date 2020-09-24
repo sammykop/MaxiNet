@@ -124,7 +124,7 @@ class Partitioner(object):
             elif(topo.isSwitch(link[1]) and not topo.isSwitch(link[0])):
                 metis[self.switches[link[1]]][0] = \
                                 metis[self.switches[link[1]]][0] + 1
-            else:
+            elif(topo.isSwitch(link[0]) and topo.isSwitch(link[1])):
                 metis[self.switches[link[0]]].append(self.switches[link[1]])
                 metis[self.switches[link[1]]].append(self.switches[link[0]])
                 if("bw" in topo.linkInfo(link[0], link[1])):
