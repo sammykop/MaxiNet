@@ -257,19 +257,21 @@ class Partitioner(object):
         for node in self.topo.nodes():
             if not self.topo.isSwitch(node):
                 self.partitions[mapping[node]].addNode(node, **self.topo.nodeInfo(node))
-                for edge in self.topo.links():
-                    if(edge[0] == node and self.topo.isSwitch(edge[1])):
-                        print("debug2")
-                        info = self._remove_nodeinfo(self.topo.linkInfo(node, edge[1]))
-                        self.partitions[mapping[edge[1]]].addNode(node, **self.topo.nodeInfo(node))
-                        self.partitions[mapping[edge[1]]].addLink(node, edge[1], **info)
-                    elif(self.topo.isSwitch(edge[0]) and edge[1] == node):
-                        print("debug3")
-                        info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], node))
-                        self.partitions[mapping[edge[0]]].addNode(node, **self.topo.nodeInfo(node))
-                        self.partitions[mapping[edge[0]]].addLink(edge[0], node, **info)
+              
         for edge in self.topo.links():
-            if(self.topo.isSwitch(edge[0]) == self.topo.isSwitch(edge[1])):
+
+            if (not self.topo.isSwitch(edge[0]) and self.topo.isSwitch(edge[1])):
+                print("debug1")
+                info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
+                self.partitions[mapping[edge[1]]].addLink(edge[0], edge[1], **info)
+
+            elif(self.topo.isSwitch(edge[0]) and edge[1] == node):
+                print("debug2")
+                info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
+                self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
+
+            elif(self.topo.isSwitch(edge[0]) == self.topo.isSwitch(edge[1])):
+                print("debug3")
                 info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
                 if(mapping[edge[0]] == mapping[edge[1]]):
                     self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
