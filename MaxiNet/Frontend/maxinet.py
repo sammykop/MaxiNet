@@ -1456,7 +1456,9 @@ class Experiment(object):
                                "given topology")
         # initialize internal bookkeeping
         for subtopo in subtopos:
+            print(subtopos)
             for node in subtopo.nodes():
+                print(subtopo.nodes())
                 self.node_to_worker[node] = self.cluster.get_worker(self.workerid_to_hostname[subtopos.index(subtopo)])
                 self.nodes.append(NodeWrapper(node, self.get_worker(node)))
                 self.node_to_wrapper[node] = self.nodes[-1]
