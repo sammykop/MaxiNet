@@ -1492,12 +1492,12 @@ class Experiment(object):
             # cache hostname for possible error message
             thn = worker.hn()
             try:
-                if(self.controller):
-                    worker.start(
-                        topo=topo,
-                        tunnels=tunnels[subtopos.index(topo)],
-                        controller=self.controller)
-                else:
+                #if(self.controller):
+                #    worker.start(
+                #        topo=topo,
+                #        tunnels=tunnels[subtopos.index(topo)],
+                #        controller=self.controller)
+                #else:
                     worker.start(
                         topo=topo,
                         tunnels=tunnels[wid])
