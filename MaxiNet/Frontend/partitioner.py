@@ -265,7 +265,7 @@ class Partitioner(object):
                 info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
                 self.partitions[mapping[edge[1]]].addLink(edge[0], edge[1], **info)
 
-            elif(self.topo.isSwitch(edge[0]) and edge[1] == node):
+            elif(self.topo.isSwitch(edge[0]) and not self.topo.isSwitch(edge[1])):
                 print("debug2")
                 info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
                 self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
