@@ -269,11 +269,12 @@ class Partitioner(object):
                         self.partitions[mapping[edge[0]]].addNode(node, **self.topo.nodeInfo(node))
                         self.partitions[mapping[edge[0]]].addLink(edge[0], node, **info)
         for edge in self.topo.links():
-            info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
-            if(mapping[edge[0]] == mapping[edge[1]]):
-                self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
-            else:
-                self.tunnels.append([edge[0], edge[1], self.topo.linkInfo(edge[0], edge[1])])
+            if(self.topo.isSwitch(edge[0]) == self.topo.isSwitch(edge[1])):
+                info = self._remove_nodeinfo(self.topo.linkInfo(edge[0], edge[1]))
+                if(mapping[edge[0]] == mapping[edge[1]]):
+                    self.partitions[mapping[edge[0]]].addLink(edge[0], edge[1], **info)
+                else:
+                    self.tunnels.append([edge[0], edge[1], self.topo.linkInfo(edge[0], edge[1])])
 
         self.logger.debug("Topologies:")
         for t in self.partitions:
