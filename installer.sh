@@ -149,5 +149,5 @@ cd ~
 sudo rm -rf MaxiNet &> /dev/null
 git clone git://github.com/MaxiNet/MaxiNet.git
 cd MaxiNet
-git checkout v1.2
+git checkout containerConnection
 sudo make install
