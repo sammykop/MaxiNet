@@ -11,6 +11,13 @@ In case you want to use the automated installer, just issue the following comman
 ./installer.sh
 ```
 
+## On Ubuntu
+If you are running Ubuntu, you now have to setup your user to use sudo without password. This can simply be done by adding the following line to your /etc/sudoers file.<br>
+Replace *yourusername* with your user name.
+```bash
+yourusername ALL=(ALL) NOPASSWD: ALL
+```
+
 ## Manual installation
 
 1: Install dependencies
@@ -62,6 +69,14 @@ sudo cp ~/MaxiNet/share/MaxiNet-cfg-sample /etc/MaxiNet.cfg
 ```
 Edit the configuration file.<br>
 Look at this [wiki page](https://github.com/MaxiNet/MaxiNet/wiki/Configuration-File) for more information about the configuration files.
+
+Note that under Ubuntu, you need to set:
+```bash
+[all]
+...
+sshuser = yourusername
+usesudo = True
+```
 
 Please note that every worker connecting to the MaxiNet Server will need an respective entry in the configuration file, named by its hostname and containing its ip. The IP-section can look like this:<br>
 ```bash
