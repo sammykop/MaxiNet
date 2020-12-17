@@ -52,7 +52,7 @@ sudo pip install Pyro4
 
 5: Download and install MaxiNet
 ```bash
-cd ~ && git clone git://github.com/MaxiNet/MaxiNet.git
+cd ~ && git clone https://github.com/sammykop/MaxiNet.git
 cd MaxiNet
 git checkout v1.2
 sudo make install
